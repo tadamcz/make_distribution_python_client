@@ -2,7 +2,7 @@
 [homepage]: https://makedistribution.com
 [docs]: https://makedistribution.com/s/api/v0/docs/
 
-Python client for the [Make Distribution][homepage] API ([docs][docs]).
+Python client for the [MakeDistribution][homepage] API ([docs][docs]).
 
 Offers a thin wrapper around the API (`JSONClient`) as well as the `Distribution` class which lets you interact with MakeDistribution.com distributions as if they were ordinary SciPy distribution objects. 
 
