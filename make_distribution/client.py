@@ -1,7 +1,7 @@
 import requests
 
 
-class APIClient:
+class JSONClient:
     def __init__(self, token, version="v0"):
         self.base_url = f"https://makedistribution.com/s/api/{version}"
         self.session = requests.Session()

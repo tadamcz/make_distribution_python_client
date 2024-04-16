@@ -4,7 +4,7 @@ import make_distribution.client
 
 TOKEN = os.environ["MAKEDISTRIBUTION_API_TOKEN"]
 
-client = make_distribution.client.APIClient(token=TOKEN)
+client = make_distribution.client.JSONClient(token=TOKEN)
 dist = {
     "family": {"requested": "cinterp5_01"},
 }
