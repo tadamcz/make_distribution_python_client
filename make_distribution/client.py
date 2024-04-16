@@ -83,6 +83,8 @@ class SciPyClient:
         endpoint_slug, dist_id = match.groups()
 
         # Check if the method and endpoint are allowed
+        # TODO: needs a better error message or fallback behavior if the only problem
+        #     is leading/trailing slashes
         for allowed in self.ALLOWED_ENDPOINTS:
             if method in allowed["methods"] and re.match(
                 allowed["endpoint"].replace("{id}", allowed["id_pattern"]), endpoint
