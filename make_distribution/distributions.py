@@ -43,6 +43,16 @@ class Distribution:
         data = data["samples"]
         return np.array(data)
 
+    def __repr__(self):
+        if self.endpoint_slug == "1d/dists":
+            family = self.data["family"]["requested"]
+            description = family
+        elif self.endpoint_slug == "1d/mixtures":
+            n_components = len(self.data["components"])
+            description = "mixture of {n_components}"
+
+        return f"<Distribution {self.data['id']} [{description}]>"
+
 
 def to_csv_query_param(o):
     if isinstance(o, list):
