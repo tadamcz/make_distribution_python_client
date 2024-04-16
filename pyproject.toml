@@ -2,7 +2,7 @@
 [tool.poetry]
 name = "make_distribution"
 version = "0.1.0"
-homepage = "https://github.com/tadamcz/make_distribution"
+homepage = "https://github.com/tadamcz/make_distribution_python_client"
 description = "Top-level package for MakeDistribution.com Python client."
 authors = ["Tom Adamczewski <tadamczewskipublic@gmail.com>"]
 readme = "README.md"
