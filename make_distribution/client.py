@@ -1,8 +1,9 @@
+import re
 from typing import Union, List
 
 import requests
+
 from make_distribution.distributions import Distribution
-import re
 
 
 class JSONClient:
@@ -73,7 +74,15 @@ class SciPyClient:
     ]
 
     def _request(self, method, endpoint, **kwargs) -> Union[Distribution, List[Distribution]]:
-        # Check the method and endpoint are allowed
+        # Extract the components from the endpoint
+        match = re.match(r"(1d/(?:dists|mixtures))(?:/(\w+))?/?", endpoint)
+
+        if not match:
+            raise ValueError(f"Invalid endpoint: {endpoint}")
+
+        endpoint_slug, dist_id = match.groups()
+
+        # Check if the method and endpoint are allowed
         for allowed in self.ALLOWED_ENDPOINTS:
             if method in allowed["methods"] and re.match(
                 allowed["endpoint"].replace("{id}", allowed["id_pattern"]), endpoint
@@ -93,15 +102,10 @@ class SciPyClient:
 
         if many:
             return [
-                Distribution(
-                    data=d, endpoint_slug="/".join(endpoint.split("/")[:-1]), client=self.client
-                )
-                for d in data
+                Distribution(data=d, endpoint_slug=endpoint_slug, client=self.client) for d in data
             ]
         else:
-            return Distribution(
-                data=data, endpoint_slug="/".join(endpoint.split("/")[:-1]), client=self.client
-            )
+            return Distribution(data=data, endpoint_slug=endpoint_slug, client=self.client)
 
     def get(self, endpoint, **kwargs):
         return self._request("GET", endpoint, **kwargs)

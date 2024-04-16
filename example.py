@@ -27,7 +27,10 @@ dist = {
 
 scipyclient = make_distribution.client.SciPyClient(client)
 
-d = scipyclient.post("1d/dists/", json=dist)
+json_dist = client.post("1d/dists/", json=dist)
+
+d = scipyclient.get(f"1d/dists/{json_dist['id']}/")
+
 cdf = d.cdf([0, 1, 2])
 pdf = d.pdf([0, 1, 2])
 ppf = d.ppf([0.1, 0.5, 0.9])
