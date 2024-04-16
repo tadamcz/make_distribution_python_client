@@ -49,7 +49,7 @@ class Distribution:
             description = family
         elif self.endpoint_slug == "1d/mixtures":
             n_components = len(self.data["components"])
-            description = "mixture of {n_components}"
+            description = f"mixture of {n_components}"
 
         return f"<Distribution {self.data['id']} [{description}]>"
 
