@@ -4,8 +4,11 @@ import make_distribution.client
 
 TOKEN = os.environ["MAKEDISTRIBUTION_API_TOKEN"]
 
-client = make_distribution.client.JSONClient(token=TOKEN)
-dist = {
+json_client = make_distribution.client.JSONClient(token=TOKEN)
+
+client = make_distribution.client.SciPyClient(json_client)
+
+data = {
     "family": {"requested": "cinterp5_01"},
     "arguments": {
         "quantiles": [
@@ -25,14 +28,19 @@ dist = {
     },
 }
 
-scipyclient = make_distribution.client.SciPyClient(client)
+dist = client.post("1d/dists/", json=data)
 
-json_dist = client.post("1d/dists/", json=dist)
+# Print basic information about the distribution
+print(dist)
 
-d = scipyclient.get(f"1d/dists/{json_dist['id']}/")
+# Query additional endpoints with a SciPy-like interface
+# and print the results
+x = [1, 2, 3]
+print(f"cdf({x}) = {dist.cdf(x)}")
+print(f"pdf({x}) = {dist.pdf(x)}")
 
-cdf = d.cdf([0, 1, 2])
-pdf = d.pdf([0, 1, 2])
-ppf = d.ppf([0.1, 0.5, 0.9])
-rvs = d.rvs(10)
-exit()
+p = [0.1, 0.2, 0.3]
+print(f"ppf({p}) = {dist.ppf(p)}")
+
+size = 5
+print(f"rvs(size={size}) = {dist.rvs(size)}")
