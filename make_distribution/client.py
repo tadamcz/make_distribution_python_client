@@ -7,10 +7,11 @@ from make_distribution.distributions import Distribution
 
 
 class JSONClient:
-    def __init__(self, token, version="v0"):
+    def __init__(self, token=None, version="v0"):
         self.base_url = f"https://makedistribution.com/s/api/{version}"
         self.session = requests.Session()
-        self.session.headers.update({"Authorization": f"Token {token}"})
+        if token:
+            self.session.headers.update({"Authorization": f"Token {token}"})
 
     def _request(self, method, endpoint, **kwargs) -> dict:
         url = f"{self.base_url}/{endpoint}"
