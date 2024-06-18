@@ -26,6 +26,7 @@ json_client = make_distribution.client.JSONClient(token=TOKEN)
 client = make_distribution.client.SciPyClient(json_client)
 
 data = {
+    # See API docs for available families
     "family": {"requested": "cinterp5_01"},
     "arguments": {
         "quantiles": [
@@ -52,13 +53,13 @@ print(dist)
 
 # Query additional endpoints with a SciPy-like interface
 # and print the results
+size = 5
+print(f"rvs(size={size}) = {dist.rvs(size)}")  # Draw random samples
+
 x = [1, 2, 3]
-print(f"cdf({x}) = {dist.cdf(x)}")
-print(f"pdf({x}) = {dist.pdf(x)}")
+print(f"cdf({x}) = {dist.cdf(x)}") # Cumulative distribution function
+print(f"pdf({x}) = {dist.pdf(x)}") # Probability density function
 
 p = [0.1, 0.2, 0.3]
-print(f"ppf({p}) = {dist.ppf(p)}")
-
-size = 5
-print(f"rvs(size={size}) = {dist.rvs(size)}")
+print(f"ppf({p}) = {dist.ppf(p)}") # Quantile function (inverse CDF)
 ```
