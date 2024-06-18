@@ -46,13 +46,13 @@ data = {
     },
 }
 
+# `dist` is an instance of class `Distribution`
 dist = client.post("1d/dists/", json=data)
 
 # Print basic information about the distribution
 print(dist)
 
-# Query additional endpoints with a SciPy-like interface
-# and print the results
+# `dist` lets you query other endpoints with a SciPy-like interface
 size = 5
 print(f"rvs(size={size}) = {dist.rvs(size)}")  # Draw random samples
 
