@@ -22,7 +22,11 @@ class Distribution:
         params = {in_kwd: to_csv_query_param(in_data)}
         data = self.client.get(endpoint, params=params)
         data = [e[out_kwd] for e in data]
-        return np.array(data)
+        # Return as same shape as input, except for scalars (same as SciPy)
+        data = np.array(data).reshape(np.array(in_data).shape)
+        if data.ndim == 0:
+            return data[()]
+        return data
 
     def cdf(self, x):
         endpoint = self.base_endpoint() + "cdf/"
