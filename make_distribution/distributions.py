@@ -59,6 +59,6 @@ class Distribution:
 
 
 def to_csv_query_param(o):
-    if isinstance(o, list):
-        return ",".join([str(x) for x in o])
-    return str(o)
+    if np.isscalar(o):
+        return str(o)
+    return ",".join([str(x) for x in o])
